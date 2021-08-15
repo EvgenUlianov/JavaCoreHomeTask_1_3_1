@@ -25,30 +25,30 @@ public class Main {
 
         {
             // 1 level: src, res, savegames, temp
-            File src =       findOrCreateDirectory(catalog, "src", logs);
-            if((src != null && src.exists() && src.isDirectory())){
+            File src = findOrCreateDirectory(catalog, "src", logs);
+            if ((src != null && src.exists() && src.isDirectory())) {
                 //2 level: main, test
                 File main = findOrCreateDirectory(src, "main", logs);
-                if((main != null && main.exists() && main.isDirectory())){
+                if ((main != null && main.exists() && main.isDirectory())) {
                     //3 level: main, test
                     findOrCreateFile(main, "Main.java", logs);
                     findOrCreateFile(main, "Utils.java", logs);
                 }
                 findOrCreateDirectory(src, "test", logs);
             }
-            File res =       findOrCreateDirectory(catalog, "res", logs);
-            if((res != null) && res.exists() && res.isDirectory()){
+            File res = findOrCreateDirectory(catalog, "res", logs);
+            if ((res != null) && res.exists() && res.isDirectory()) {
                 //2 level: drawables, vectors, icons
                 findOrCreateDirectory(res, "drawables", logs);
                 findOrCreateDirectory(res, "vectors", logs);
                 findOrCreateDirectory(res, "icons", logs);
             }
             findOrCreateDirectory(catalog, "savegames", logs);
-            File temp =      findOrCreateDirectory(catalog, "temp", logs);
-            if((temp != null && temp.exists() && temp.isDirectory())){
+            File temp = findOrCreateDirectory(catalog, "temp", logs);
+            if ((temp != null && temp.exists() && temp.isDirectory())) {
                 //3 level: main, test
                 File tempTxt = findOrCreateFile(temp, "temp.txt", logs);
-                if((tempTxt != null))
+                if ((tempTxt != null))
                     nameOfLogFile = tempTxt.getAbsolutePath();
             }
         }
@@ -72,26 +72,25 @@ public class Main {
         }
 
 
-
     }
 
-    public static File findOrCreateDirectory(File parent, String name, StringBuilder logs){
+    public static File findOrCreateDirectory(File parent, String name, StringBuilder logs) {
         String fullName = parent.getAbsolutePath() + "\\" + name;
         File file = new File(fullName);
         if (file.exists()) // do nothing
             return file;
 
         Date date = new Date();
-        if (file.mkdir()){
+        if (file.mkdir()) {
             logs.append("Directory created (" + date + "): " + fullName + '\n');
             return file;
-        }else {
+        } else {
             logs.append("Failed to create directory (" + date + "): " + fullName + '\n');
             return null;
         }
     }
 
-    public static File findOrCreateFile(File parent, String name, StringBuilder logs){
+    public static File findOrCreateFile(File parent, String name, StringBuilder logs) {
         String fullName = parent.getAbsolutePath() + "\\" + name;
         File file = new File(fullName);
         if (file.exists()) // do nothing
@@ -106,8 +105,7 @@ public class Main {
                 logs.append("Failed to create file (" + date + "): " + fullName + '\n');
                 return null;
             }
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             logs.append("Failed to create file (" + date + "): " + fullName + '\n');
             logs.append(ex.getMessage() + '\n');
             return null;
